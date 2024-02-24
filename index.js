@@ -13,7 +13,6 @@ const interval = 5; //interval list in sec
 const getAccount = (accountId, privateKey) =>
   new Promise(async (resolve, reject) => {
     try {
-      console.log(`Getting acc ${accountId,privateKey}`);
       const keyStore = new keyStores.InMemoryKeyStore();
       const keyPair = KeyPair.fromString(privateKey);
       await keyStore.setKey(rpc.networkId, accountId, keyPair);
@@ -35,7 +34,6 @@ const getAccount = (accountId, privateKey) =>
   });
 
 const getNearBalance = async (accountId, privateKey) => {
-  console.log('get near balance');
   const account = await getAccount(accountId, privateKey);
   const balance = await account.getAccountBalance();
   return { balance, account };
