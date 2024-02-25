@@ -1,10 +1,10 @@
 import fs from "fs";
 import { KeyPair, keyStores, connect } from "near-api-js";
-import { rpc } from "./rpc.js";
+import { rpc } from "./src/rpc.js";
 import BigNumber from "bignumber.js";
 import { Twisters } from "twisters";
 
-const accountFile = fs.readFileSync("./account.txt", "utf-8")
+const accountFile = fs.readFileSync("../src/account.txt", "utf-8")
 const [accountId, privateKey] = accountFile.split("|");
 
 const twisters = new Twisters();
@@ -39,7 +39,7 @@ const getNearBalance = async (accountId, privateKey) => {
   return { balance, account };
 };
 
-const getWalletBalance = () => {
+export const getWalletBalance = () => {
   return new Promise((resolve, reject) => {
     getNearBalance(accountId, privateKey)
       .then(({ balance, account }) => {
