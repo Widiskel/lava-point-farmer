@@ -8,10 +8,16 @@
     "farm": "node index.js"
   },
   "keywords": [
-    "lava"
+    "lava",
+    "lava-point",
+    "lava-farm"
   ],
   "author": "Widiskel",
   "license": "ISC",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/Widiskel/lava-point-farmer-near.git"
+  },
   "dependencies": {
     "near-api-js": "^3.0.3",
     "bignumber.js": "^9.1.2",
