@@ -4,7 +4,7 @@ import { rpc } from "./src/rpc.js";
 import BigNumber from "bignumber.js";
 import { Twisters } from "twisters";
 
-const accountFile = fs.readFileSync("../src/account.txt", "utf-8")
+const accountFile = fs.readFileSync("./src/account.txt", "utf-8")
 const [accountId, privateKey] = accountFile.split("|");
 
 const twisters = new Twisters();
