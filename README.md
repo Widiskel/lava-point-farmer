@@ -6,7 +6,9 @@ LAVA point farmer using Lava NEAR RPC.
 - install nodejs.
 - cd to project dir.
 - run ```npm install```.
-- ceate file with name ```account.txt``` and add ur wallet deails with this format ```accountID|privateKEY``` , example ```test.near.asw|akalsjfklasjfklasjfklasf```.
+- ceate file with name ```account.txt``` for mainnet and ```account-testnet.txt``` 
+- check out the index.js make sure it load the correct txt file.
+- open ```account.txt``` and add ur wallet deails with this format ```accountID|privateKEY``` , example ```test.near.asw|akalsjfklasjfklasjfklasf```.
 - run ```npm run farm```.
 
 ## Note

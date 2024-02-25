@@ -9,7 +9,7 @@ const [accountId, privateKey] = accountFile.split("|");
 
 const twisters = new Twisters();
 let executed = 1;
-const interval = 5; //interval list in sec
+const interval = 10; //interval list in sec
 const getAccount = (accountId, privateKey) =>
   new Promise(async (resolve, reject) => {
     try {
