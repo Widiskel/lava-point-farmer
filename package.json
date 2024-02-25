@@ -1,6 +1,6 @@
 {
-  "name": "lava-point-farm",
-  "version": "1.0.1",
+  "name": "lava-point-farmer",
+  "version": "1.0.0",
   "description": "Lava point farmer",
   "main": "index.js",
   "type": "module",
