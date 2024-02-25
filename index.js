@@ -9,7 +9,7 @@ const [accountId, privateKey] = accountFile.split("|");
 
 const twisters = new Twisters();
 let executed = 1;
-const interval = 10; //interval list in sec
+const interval = 5; //interval list in sec
 const getAccount = (accountId, privateKey) =>
   new Promise(async (resolve, reject) => {
     try {
@@ -70,16 +70,25 @@ Executed : ${executed}
   });
 };
 
-
+const handleInterrupt = () => {
+  console.log("User interrupted. Exiting...");
+  process.exit(0); 
+};
+process.on("SIGINT", handleInterrupt);
 
 (async () => {
   try {
-    await getWalletBalance();
-
-    setInterval(async () => {
+    while (true) {
+      try {
         await getWalletBalance();
-    }, interval * 1000);
+      } catch (error) {
+        console.error("Error occurred ", error);
+      }
+      await new Promise(resolve => setTimeout(resolve, interval * 1000));
+    }
   } catch (error) {
-    console.error("Error occurred:", error);
+    console.error("Unexpected error occurred ", error);
+  } finally {
+    process.removeListener("SIGINT", handleInterrupt);
   }
 })();
