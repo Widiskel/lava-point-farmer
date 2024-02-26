@@ -59,7 +59,7 @@ Available : ${BigNumber(balance.available).dividedBy(1e24)} NEAR
 Executed : ${executed}
 `,
         });
-        executed += 1;
+        
 
         resolve();
       })
@@ -81,6 +81,7 @@ process.on("SIGINT", handleInterrupt);
     while (true) {
       try {
         await getWalletBalance();
+        executed += 1;
       } catch (error) {
         console.error("Error occurred ", error);
       }
