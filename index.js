@@ -3,6 +3,7 @@ import { Twisters } from "twisters";
 import * as acc from "./src/account.js";
 import { checkNearBalance } from "./src/near_repo.js";
 import { checkEthBalance } from "./src/eth_repo.js";
+import { checkEvmosBalance } from "./src/evmos_repo.js";
 
 const [nearAccountId, nearPrivateKey] = [
   acc.nearAccountMainnetID,
@@ -12,6 +13,7 @@ const [nearAccountId, nearPrivateKey] = [
 const twisters = new Twisters();
 let ethExecuted = 1;
 let nearExecuted = 1;
+let evmosExecuted = 1;
 const interval = 3; //interval list in sec
 
 export const getNearWalletBalance = () => {
@@ -20,13 +22,8 @@ export const getNearWalletBalance = () => {
       .then(({ balance, account }) => {
         twisters.put(nearAccountId, {
           text: `
+== NEAR account balance Information ==
 Account : ${nearAccountId}
-Connection Information 
-Network ID : ${account.connection.networkId}
-Provider : ${account.connection.provider.connection.url}
-Signer : ${Object.keys(account.connection.signer.keyStore.keys).join(", ")}
-
-NEAR account balance Information
 Total : ${BigNumber(balance.total).dividedBy(1e24)} NEAR
 State Staked : ${BigNumber(balance.stateStaked).dividedBy(1e24)} NEAR
 Staked : ${BigNumber(balance.staked).dividedBy(1e24)} NEAR
@@ -45,12 +42,33 @@ Executed : ${nearExecuted}
 
 export const getEthWalletBalance = () => {
   return new Promise((resolve, reject) => {
-    checkEthBalance(acc.ethAddress)
+    checkEthBalance(acc.ethEvmosAddress)
       .then((balance) => {
-        twisters.put(acc.ethAddress, {
+        twisters.put(acc.ethEvmosAddress, {
           text: `
-Account : ${acc.ethAddress}
-ETH Balance : ${balance} ETH
+== Ethereum account balance Information ==
+Account : ${acc.ethEvmosAddress}
+ETH Balance : ${balance}
+Executed : ${ethExecuted}
+`,
+        });
+        resolve();
+      })
+      .catch((error) => {
+        console.error("Error occurred:", error);
+        reject(error);
+      });
+  });
+};
+export const getEvmosWalletBalance = () => {
+  return new Promise((resolve, reject) => {
+    checkEvmosBalance(acc.ethEvmosAddress)
+      .then((balance) => {
+        twisters.put(acc.ethEvmosAddress + "evmos", {
+          text: `
+== EVMOS account balance Information ==
+Account : ${acc.ethEvmosAddress}
+EVMOS Balance : ${balance}
 Executed : ${ethExecuted}
 `,
         });
@@ -80,9 +98,11 @@ process.on("SIGINT", handleInterrupt);
           await getNearWalletBalance();
           nearExecuted += 1;
         }
-        if (acc.ethAddress != "") {
+        if (acc.ethEvmosAddress != "") {
           await getEthWalletBalance();
           ethExecuted += 1;
+          await getEvmosWalletBalance();
+          evmosExecutedExecuted += 1;
         }
       } catch (error) {
         console.error("Error occurred ", error);

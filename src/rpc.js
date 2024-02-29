@@ -12,3 +12,7 @@ export const ethRPC = {
   nodeUrl:
     "https://eth1.lava.build/lava-referer-0f2e3541-2e8c-4a34-8558-fcfa396af234/",
 }
+export const evmosRPC = {
+  nodeUrl:
+    "https://evmos.lava.build/lava-referer-0f2e3541-2e8c-4a34-8558-fcfa396af234/",
+}

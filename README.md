@@ -11,6 +11,6 @@ LAVA point farmer using Lava NEAR RPC.
 - run ```npm run farm```.
 
 ## Note
-- this package now support running near and eth rpc using your lava custom rpc. this package only check your balance. not doing anything sus or nasty. because the goal is to add more activity using your custom lava rpc.
+- this package now support running near, eth, and evmos rpc using your lava custom rpc. this package only check your balance. not doing anything sus or nasty. because the goal is to add more activity using your custom lava rpc.
 
 
