@@ -102,7 +102,7 @@ process.on("SIGINT", handleInterrupt);
           await getEthWalletBalance();
           ethExecuted += 1;
           await getEvmosWalletBalance();
-          evmosExecutedExecuted += 1;
+          evmosExecuted += 1;
         }
       } catch (error) {
         console.error("Error occurred ", error);
