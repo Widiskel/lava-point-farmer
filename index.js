@@ -1,51 +1,25 @@
-import fs from "fs";
-import { KeyPair, keyStores, connect } from "near-api-js";
-import { rpc } from "./src/rpc.js";
 import BigNumber from "bignumber.js";
 import { Twisters } from "twisters";
+import * as acc from "./src/account.js";
+import { checkNearBalance } from "./src/near_repo.js";
+import { checkEthBalance } from "./src/eth_repo.js";
 
-const accountFile = fs.readFileSync("./src/account.txt", "utf-8")
-const [accountId, privateKey] = accountFile.split("|");
+const [nearAccountId, nearPrivateKey] = [
+  acc.nearAccountMainnetID,
+  acc.nearAccountMainnetPK,
+];
 
 const twisters = new Twisters();
 let executed = 1;
-const interval = 5; //interval list in sec
-const getAccount = (accountId, privateKey) =>
-  new Promise(async (resolve, reject) => {
-    try {
-      const keyStore = new keyStores.InMemoryKeyStore();
-      const keyPair = KeyPair.fromString(privateKey);
-      await keyStore.setKey(rpc.networkId, accountId, keyPair);
+const interval = 3; //interval list in sec
 
-      const connectionConfig = {
-        deps: {
-          keyStore,
-        },
-        ...rpc,
-      };
-
-      const accountConnection = await connect(connectionConfig);
-      const account = await accountConnection.account(accountId);
-
-      resolve(account);
-    } catch (error) {
-      reject(error);
-    }
-  });
-
-const getNearBalance = async (accountId, privateKey) => {
-  const account = await getAccount(accountId, privateKey);
-  const balance = await account.getAccountBalance();
-  return { balance, account };
-};
-
-export const getWalletBalance = () => {
+export const getNearWalletBalance = () => {
   return new Promise((resolve, reject) => {
-    getNearBalance(accountId, privateKey)
+    checkNearBalance(nearAccountId, nearPrivateKey)
       .then(({ balance, account }) => {
-        twisters.put(accountId, {
+        twisters.put(nearAccountId, {
           text: `
-Account : ${accountId}
+Account : ${nearAccountId}
 Connection Information 
 Network ID : ${account.connection.networkId}
 Provider : ${account.connection.provider.connection.url}
@@ -59,8 +33,26 @@ Available : ${BigNumber(balance.available).dividedBy(1e24)} NEAR
 Executed : ${executed}
 `,
         });
-        
+        resolve();
+      })
+      .catch((error) => {
+        console.error("Error occurred:", error);
+        reject(error);
+      });
+  });
+};
 
+export const getEthWalletBalance = () => {
+  return new Promise((resolve, reject) => {
+    checkEthBalance(acc.ethAddress)
+      .then((balance) => {
+        twisters.put(acc.ethAddress, {
+          text: `
+Account : ${acc.ethAddress}
+ETH Balance : ${balance} ETH
+Executed : ${executed}
+`,
+        });
         resolve();
       })
       .catch((error) => {
@@ -72,7 +64,7 @@ Executed : ${executed}
 
 const handleInterrupt = () => {
   console.log("User interrupted. Exiting...");
-  process.exit(0); 
+  process.exit(0);
 };
 process.on("SIGINT", handleInterrupt);
 
@@ -80,12 +72,20 @@ process.on("SIGINT", handleInterrupt);
   try {
     while (true) {
       try {
-        await getWalletBalance();
+        if (
+          (acc.nearAccountMainnetID != "") &
+          (acc.nearAccountMainnetPK != "")
+        ) {
+          await getNearWalletBalance();
+        }
+        if (acc.ethAddress != "") {
+          await getEthWalletBalance();
+        }
         executed += 1;
       } catch (error) {
         console.error("Error occurred ", error);
       }
-      await new Promise(resolve => setTimeout(resolve, interval * 1000));
+      await new Promise((resolve) => setTimeout(resolve, interval * 1000));
     }
   } catch (error) {
     console.error("Unexpected error occurred ", error);

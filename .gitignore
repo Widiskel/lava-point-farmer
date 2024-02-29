@@ -1,4 +1,4 @@
 node_modules
 package-lock.json
 account.txt
-account-testnet.txt
+account.js

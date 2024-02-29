@@ -6,12 +6,11 @@ LAVA point farmer using Lava NEAR RPC.
 - install nodejs.
 - cd to project dir.
 - run ```npm install```.
-- ceate file with name ```account.txt``` for mainnet and ```account-testnet.txt``` .
-- check out the index.js make sure it load the correct txt file.
-- open ```account.txt``` and add ur wallet deails with this format ```accountID|privateKEY``` , example ```test.near.asw|akalsjfklasjfklasjfklasf```.
+- run ```cp src/account_tmp.js src/account.js``` .
+- open ```account.js``` and add ur details (wallet, pk, address) on the fillable ```"here"```. 
 - run ```npm run farm```.
 
 ## Note
-- if you want to run using Near Mainnet / Testnet, check up the ```rpc.js``` and uncomment using ```ctrl+/``` the RPC const you want to use.
+- this package now support running near and eth rpc using your lava custom rpc. this package only check your balance. not doing anything sus or nasty. because the goal is to add more activity using your custom lava rpc.
 
 

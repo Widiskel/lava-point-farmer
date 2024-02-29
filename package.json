@@ -15,12 +15,13 @@
   "author": "Widiskel",
   "license": "ISC",
   "repository": {
-      "type": "git",
-      "url": "https://github.com/Widiskel/lava-point-farmer-near.git"
+    "type": "git",
+    "url": "https://github.com/Widiskel/lava-point-farmer-near.git"
   },
   "dependencies": {
-    "near-api-js": "^3.0.3",
     "bignumber.js": "^9.1.2",
-    "twisters": "^1.1.0"
+    "near-api-js": "^3.0.3",
+    "twisters": "^1.1.0",
+    "web3": "^4.5.0"
   }
 }
