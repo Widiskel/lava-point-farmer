@@ -10,7 +10,8 @@ const [nearAccountId, nearPrivateKey] = [
 ];
 
 const twisters = new Twisters();
-let executed = 1;
+let ethExecuted = 1;
+let nearExecuted = 1;
 const interval = 3; //interval list in sec
 
 export const getNearWalletBalance = () => {
@@ -30,7 +31,7 @@ Total : ${BigNumber(balance.total).dividedBy(1e24)} NEAR
 State Staked : ${BigNumber(balance.stateStaked).dividedBy(1e24)} NEAR
 Staked : ${BigNumber(balance.staked).dividedBy(1e24)} NEAR
 Available : ${BigNumber(balance.available).dividedBy(1e24)} NEAR
-Executed : ${executed}
+Executed : ${nearExecuted}
 `,
         });
         resolve();
@@ -50,7 +51,7 @@ export const getEthWalletBalance = () => {
           text: `
 Account : ${acc.ethAddress}
 ETH Balance : ${balance} ETH
-Executed : ${executed}
+Executed : ${ethExecuted}
 `,
         });
         resolve();
@@ -77,11 +78,12 @@ process.on("SIGINT", handleInterrupt);
           (acc.nearAccountMainnetPK != "")
         ) {
           await getNearWalletBalance();
+          nearExecuted += 1;
         }
         if (acc.ethAddress != "") {
           await getEthWalletBalance();
+          ethExecuted
         }
-        executed += 1;
       } catch (error) {
         console.error("Error occurred ", error);
       }
