@@ -82,7 +82,7 @@ process.on("SIGINT", handleInterrupt);
         }
         if (acc.ethAddress != "") {
           await getEthWalletBalance();
-          ethExecuted
+          ethExecuted += 1;
         }
       } catch (error) {
         console.error("Error occurred ", error);
