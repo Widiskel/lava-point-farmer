@@ -19,8 +19,10 @@
     "url": "https://github.com/Widiskel/lava-point-farmer.git"
   },
   "dependencies": {
+    "@axelar-network/axelarjs-sdk": "^0.14.1",
     "bignumber.js": "^9.1.2",
     "near-api-js": "^3.0.3",
+    "starknet": "^5.24.3",
     "twisters": "^1.1.0",
     "web3": "^4.5.0"
   }
