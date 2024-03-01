@@ -1,6 +1,6 @@
 # LAVA POINT FARMER
 
-LAVA point farmer using Lava NEAR RPC.
+LAVA point farmer using Lava RPC.
 
 ## Setup
 - install nodejs.
