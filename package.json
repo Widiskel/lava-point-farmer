@@ -1,6 +1,6 @@
 {
   "name": "lava-point-farmer",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Lava point farmer",
   "main": "index.js",
   "type": "module",
@@ -16,7 +16,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Widiskel/lava-point-farmer-near.git"
+    "url": "https://github.com/Widiskel/lava-point-farmer.git"
   },
   "dependencies": {
     "bignumber.js": "^9.1.2",
