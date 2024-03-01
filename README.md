@@ -1,4 +1,4 @@
-# LAVA NEAR POINT FARMER
+# LAVA POINT FARMER
 
 LAVA point farmer using Lava NEAR RPC.
 
