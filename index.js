@@ -93,7 +93,7 @@ export const getAXLFee = () => {
         twisters.put("AXL", {
           text: `
 == AXL Farm Connect To RPC ==
-fee : ${fee}
+fee : ${JSON.stringify(fee)}
 Executed : ${axlExecuted}
 `,
         });
