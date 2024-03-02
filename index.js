@@ -94,6 +94,7 @@ export const getAXLFee = () => {
           text: `
 == AXL Farm Connect To RPC ==
 fee : ${fee}
+Executed : ${axlExecuted}
 `,
         });
         resolve();
