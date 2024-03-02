@@ -4,6 +4,8 @@ import * as acc from "./src/account.js";
 import { checkNearBalance } from "./src/near_repo.js";
 import { checkEthBalance } from "./src/eth_repo.js";
 import { checkEvmosBalance } from "./src/evmos_repo.js";
+import { checkSTRKBalance } from "./src/strk_repo.js"
+import { checkAXLBalance } from "./src/axl_repo.js"
 
 const [nearAccountId, nearPrivateKey] = [
   acc.nearAccountMainnetID,
@@ -14,6 +16,8 @@ const twisters = new Twisters();
 let ethExecuted = 1;
 let nearExecuted = 1;
 let evmosExecuted = 1;
+let strkExecuted = 1;
+let axlExecuted = 1;
 const interval = 3; //interval list in sec
 
 export const getNearWalletBalance = () => {
@@ -60,6 +64,47 @@ Executed : ${ethExecuted}
       });
   });
 };
+
+export const getSTRKWalletBalance = () => {
+  return new Promise((resolve, reject) => {
+    checkSTRKBalance(acc.strkContractAddress, acc.strkAddress)
+      .then((balance) => {
+        twisters.put(acc.strkAddress + "STRK", {
+          text: `
+== STRK account balance Information ==
+Account : ${acc.strkAddress}
+STRK Balance : ${balance}
+Executed : ${strkExecuted}
+`,
+        });
+        resolve();
+      })
+      .catch((error) => {
+        console.error("Error occurred:", error);
+        reject(error);
+      });
+  });
+};
+
+export const getAXLFee = () => {
+  return new Promise((resolve, reject) => {
+    checkAXLBalance()
+      .then((fee) => {
+        twisters.put("AXL", {
+          text: `
+== AXL Farm Connect To RPC ==
+fee : ${fee}
+`,
+        });
+        resolve();
+      })
+      .catch((error) => {
+        console.error("Error occurred:", error);
+        reject(error);
+      });
+  });
+};
+
 export const getEvmosWalletBalance = () => {
   return new Promise((resolve, reject) => {
     checkEvmosBalance(acc.ethEvmosAddress)
@@ -104,6 +149,12 @@ process.on("SIGINT", handleInterrupt);
           await getEvmosWalletBalance();
           evmosExecuted += 1;
         }
+        if (acc.strkAddress != "" && acc.strkContractAddress != "") {
+          await getSTRKWalletBalance();
+          strkExecuted += 1;
+        }
+        await getAXLFee();
+        axlExecuted += 1;
       } catch (error) {
         console.error("Error occurred ", error);
       }
