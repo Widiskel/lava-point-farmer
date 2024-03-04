@@ -20,6 +20,7 @@ let nearExecuted = 1;
 let strkExecuted = 1;
 let axlExecuted = 1;
 const interval = 30; //interval list in sec
+const randomInterval = Math.floor(Math.random() * (120 - 30 + 1) + 30) * 1000;
 
 export const getNearWalletBalance = () => {
   return new Promise((resolve, reject) => {
@@ -164,7 +165,8 @@ process.on("SIGINT", handleInterrupt);
       } catch (error) {
         console.error("Error occurred ", error);
       }
-      await new Promise((resolve) => setTimeout(resolve, interval * 1000));
+      console.log("Random set",randomInterval);
+      await new Promise((resolve) => setTimeout(resolve, randomInterval * 1000));
     }
   } catch (error) {
     console.error("Unexpected error occurred ", error);
