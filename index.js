@@ -20,7 +20,7 @@ let nearExecuted = 1;
 let strkExecuted = 1;
 let axlExecuted = 1;
 const interval = 30; //interval list in sec
-const randomInterval = Math.floor(Math.random() * (120 - 30 + 1) + 30) * 1000;
+const randomInterval = Math.floor(Math.random() * (120 - 30 + 1) + 30);
 
 export const getNearWalletBalance = () => {
   return new Promise((resolve, reject) => {
