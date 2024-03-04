@@ -21,6 +21,7 @@ let strkExecuted = 1;
 let axlExecuted = 1;
 const interval = 30; //interval list in sec
 const randomInterval = Math.floor(Math.random() * (120 - 30 + 1) + 30);
+const randomIntervalMini = Math.floor(Math.random() * (15 - 5 + 1) + 5);
 
 export const getNearWalletBalance = () => {
   return new Promise((resolve, reject) => {
@@ -145,23 +146,23 @@ process.on("SIGINT", handleInterrupt);
         ) {
           await getNearWalletBalance();
           nearExecuted += 1;
-          await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
+          await new Promise((resolve) => setTimeout(resolve, randomIntervalMini * 1000));
         }
         if (acc.ethEvmosAddress != "") {
           await getEthWalletBalance();
           ethExecuted += 1;
-          await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
+          await new Promise((resolve) => setTimeout(resolve, randomIntervalMini * 1000));
           // await getEvmosWalletBalance();
           // evmosExecuted += 1;
         }
         if (acc.strkAddress != "" && acc.strkContractAddress != "") {
           await getSTRKWalletBalance();
           strkExecuted += 1;
-          await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
+          await new Promise((resolve) => setTimeout(resolve, randomIntervalMini * 1000));
         }
         await getAXLFee();
         axlExecuted += 1;
-        await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
+        await new Promise((resolve) => setTimeout(resolve, randomIntervalMini * 1000));
       } catch (error) {
         console.error("Error occurred ", error);
       }
