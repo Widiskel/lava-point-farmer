@@ -21,6 +21,20 @@ let strkExecuted = 1;
 let axlExecuted = 1;
 const interval = 30; //interval list in sec
 const randomInterval = Math.floor(Math.random() * (120 - 30 + 1) + 30);
+
+async function waitRandomInterval(to,from) {
+  // Menghitung interval acak antara 30 hingga 120 detik
+  const randomInterval = Math.floor(Math.random() * (to - from + 1) + from) * 1000;
+
+  // Menampilkan interval acak sebelum menunggu
+  console.log(`Waiting for ${randomInterval / 1000} seconds...`);
+
+  // Menunggu interval acak sebelum melanjutkan
+  await new Promise((resolve) => setTimeout(resolve, randomInterval));
+
+  // Setelah menunggu, melakukan console.log
+  console.log("Random interval completed!");
+}
 const randomIntervalMini = Math.floor(Math.random() * (15 - 5 + 1) + 5);
 
 export const getNearWalletBalance = () => {
@@ -146,32 +160,27 @@ process.on("SIGINT", handleInterrupt);
         ) {
           await getNearWalletBalance();
           nearExecuted += 1;
-          console.log("Random setIntv",randomIntervalMini);
-          await new Promise((resolve) => setTimeout(resolve, randomIntervalMini * 1000));
+          await waitRandomInterval(15,5);
         }
         if (acc.ethEvmosAddress != "") {
           await getEthWalletBalance();
           ethExecuted += 1;
-          console.log("Random setIntv",randomIntervalMini);
-          await new Promise((resolve) => setTimeout(resolve, randomIntervalMini * 1000));
+          await waitRandomInterval(15,5);
           // await getEvmosWalletBalance();
           // evmosExecuted += 1;
         }
         if (acc.strkAddress != "" && acc.strkContractAddress != "") {
           await getSTRKWalletBalance();
           strkExecuted += 1;
-          console.log("Random setIntv",randomIntervalMini);
-          await new Promise((resolve) => setTimeout(resolve, randomIntervalMini * 1000));
+          await waitRandomInterval(15,5);
         }
         await getAXLFee();
         axlExecuted += 1;
-        console.log("Random setIntv",randomIntervalMini);
-        await new Promise((resolve) => setTimeout(resolve, randomIntervalMini * 1000));
+        await waitRandomInterval(15,5);
       } catch (error) {
         console.error("Error occurred ", error);
       }
-      console.log("Random set",randomInterval);
-      await new Promise((resolve) => setTimeout(resolve, randomInterval * 1000));
+      await waitRandomInterval(120,30);
     }
   } catch (error) {
     console.error("Unexpected error occurred ", error);
