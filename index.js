@@ -146,11 +146,13 @@ process.on("SIGINT", handleInterrupt);
         ) {
           await getNearWalletBalance();
           nearExecuted += 1;
+          console.log("Random setIntv",randomIntervalMini);
           await new Promise((resolve) => setTimeout(resolve, randomIntervalMini * 1000));
         }
         if (acc.ethEvmosAddress != "") {
           await getEthWalletBalance();
           ethExecuted += 1;
+          console.log("Random setIntv",randomIntervalMini);
           await new Promise((resolve) => setTimeout(resolve, randomIntervalMini * 1000));
           // await getEvmosWalletBalance();
           // evmosExecuted += 1;
@@ -158,10 +160,12 @@ process.on("SIGINT", handleInterrupt);
         if (acc.strkAddress != "" && acc.strkContractAddress != "") {
           await getSTRKWalletBalance();
           strkExecuted += 1;
+          console.log("Random setIntv",randomIntervalMini);
           await new Promise((resolve) => setTimeout(resolve, randomIntervalMini * 1000));
         }
         await getAXLFee();
         axlExecuted += 1;
+        console.log("Random setIntv",randomIntervalMini);
         await new Promise((resolve) => setTimeout(resolve, randomIntervalMini * 1000));
       } catch (error) {
         console.error("Error occurred ", error);
