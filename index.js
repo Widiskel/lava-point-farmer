@@ -15,10 +15,11 @@ const [nearAccountId, nearPrivateKey] = [
 const twisters = new Twisters();
 let ethExecuted = 1;
 let nearExecuted = 1;
-let evmosExecuted = 1;
+//turn off evmos because RPC paused
+//let evmosExecuted = 1;
 let strkExecuted = 1;
 let axlExecuted = 1;
-const interval = 3; //interval list in sec
+const interval = 30; //interval list in sec
 
 export const getNearWalletBalance = () => {
   return new Promise((resolve, reject) => {
@@ -143,19 +144,23 @@ process.on("SIGINT", handleInterrupt);
         ) {
           await getNearWalletBalance();
           nearExecuted += 1;
+          await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
         }
         if (acc.ethEvmosAddress != "") {
           await getEthWalletBalance();
           ethExecuted += 1;
-          await getEvmosWalletBalance();
-          evmosExecuted += 1;
+          await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
+          // await getEvmosWalletBalance();
+          // evmosExecuted += 1;
         }
         if (acc.strkAddress != "" && acc.strkContractAddress != "") {
           await getSTRKWalletBalance();
           strkExecuted += 1;
+          await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
         }
         await getAXLFee();
         axlExecuted += 1;
+        await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
       } catch (error) {
         console.error("Error occurred ", error);
       }
