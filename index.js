@@ -20,7 +20,7 @@ let nearExecuted = 1;
 let strkExecuted = 1;
 let axlExecuted = 1;
 const interval = 30; //interval list in sec
-const randomInterval = Math.floor(Math.random() * (120 - 30 + 1) + 30);
+const randomInterval = Math.floor(Math.random() * (50 - 10 + 1) + 30);
 
 async function waitRandomInterval(to,from) {
   // Menghitung interval acak antara 30 hingga 120 detik
@@ -160,23 +160,23 @@ process.on("SIGINT", handleInterrupt);
         ) {
           await getNearWalletBalance();
           nearExecuted += 1;
-          await waitRandomInterval(15,5);
+          await waitRandomInterval(10,3);
         }
         if (acc.ethEvmosAddress != "") {
           await getEthWalletBalance();
           ethExecuted += 1;
-          await waitRandomInterval(15,5);
+          await waitRandomInterval(10,3);
           // await getEvmosWalletBalance();
           // evmosExecuted += 1;
         }
         if (acc.strkAddress != "" && acc.strkContractAddress != "") {
           await getSTRKWalletBalance();
           strkExecuted += 1;
-          await waitRandomInterval(15,5);
+          await waitRandomInterval(10,3);
         }
         await getAXLFee();
         axlExecuted += 1;
-        await waitRandomInterval(15,5);
+        await waitRandomInterval(10,3);
       } catch (error) {
         console.error("Error occurred ", error);
       }
