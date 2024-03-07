@@ -1,6 +1,6 @@
 // MAINNET RPC
 
-const referer = "108a0618-bc05-4d10-8889-045720a7e9d0";
+const referer = "0f2e3541-2e8c-4a34-8558-fcfa396af234";
 
 export const nearMainnetRPC = {
   networkId: "mainnet",
