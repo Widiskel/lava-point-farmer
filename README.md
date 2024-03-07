@@ -4,6 +4,7 @@ LAVA point farmer using Lava RPC.
 
 ## Setup
 - install nodejs.
+- clone the project ```git clone https://github.com/Widiskel/lava-point-farmer.git```
 - cd to project dir.
 - run ```npm install```.
 - run ```cp src/account_tmp.js src/account.js``` .
