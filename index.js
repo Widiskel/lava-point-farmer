@@ -19,7 +19,8 @@ let nearExecuted = 1;
 //let evmosExecuted = 1;
 let strkExecuted = 1;
 let axlExecuted = 1;
-const interval = 30; //interval list in sec
+const minInterval = 3;
+const maxInterval = 10;
 const randomInterval = Math.floor(Math.random() * (50 - 10 + 1) + 30);
 
 async function waitRandomInterval(to,from) {
@@ -160,23 +161,23 @@ process.on("SIGINT", handleInterrupt);
         ) {
           await getNearWalletBalance();
           nearExecuted += 1;
-          await waitRandomInterval(10,3);
+          await waitRandomInterval(maxInterval,minInterval);
         }
         if (acc.ethEvmosAddress != "") {
           await getEthWalletBalance();
           ethExecuted += 1;
-          await waitRandomInterval(10,3);
+          await waitRandomInterval(maxInterval,minInterval);
           // await getEvmosWalletBalance();
           // evmosExecuted += 1;
         }
         if (acc.strkAddress != "" && acc.strkContractAddress != "") {
           await getSTRKWalletBalance();
           strkExecuted += 1;
-          await waitRandomInterval(10,3);
+          await waitRandomInterval(maxInterval,minInterval);
         }
         await getAXLFee();
         axlExecuted += 1;
-        await waitRandomInterval(10,3);
+        await waitRandomInterval(maxInterval,minInterval);
       } catch (error) {
         console.error("Error occurred ", error);
       }
