@@ -156,21 +156,21 @@ process.on("SIGINT", handleInterrupt);
     while (true) {
       try {
         if (
-          (acc.nearAccountMainnetID != "") &
-          (acc.nearAccountMainnetPK != "")
+          (acc.nearAccountMainnetID != "here") &
+          (acc.nearAccountMainnetPK != "here")
         ) {
           await getNearWalletBalance();
           nearExecuted += 1;
           await waitRandomInterval(maxInterval,minInterval);
         }
-        if (acc.ethEvmosAddress != "") {
+        if (acc.ethEvmosAddress != "here") {
           await getEthWalletBalance();
           ethExecuted += 1;
           await waitRandomInterval(maxInterval,minInterval);
           // await getEvmosWalletBalance();
           // evmosExecuted += 1;
         }
-        if (acc.strkAddress != "" && acc.strkContractAddress != "") {
+        if (acc.strkAddress != "here" && acc.strkContractAddress != "here") {
           await getSTRKWalletBalance();
           strkExecuted += 1;
           await waitRandomInterval(maxInterval,minInterval);
